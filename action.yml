@@ -84,6 +84,14 @@ runs:
         INPUT_ESLINT_FLAGS: ${{ inputs.eslint_flags }}
         INPUT_WORKDIR: ${{ inputs.workdir }}
         INPUT_TOOL_NAME: ${{ inputs.tool_name }}
+        INPUT_PYRIGHT_VERSION: ${{ inputs.pyright_version }}
+        INPUT_PYTHON_PLATFORM: ${{ inputs.python_platform }}
+        INPUT_PYTHON_VERSION: ${{ inputs.python_version }}
+        INPUT_TYPESHED_PATH: ${{ inputs.typeshed_path }}
+        INPUT_VENV_PATH: ${{ inputs.venv_path }}
+        INPUT_PROJECT: ${{ inputs.project }}
+        INPUT_LIB: ${{ inputs.lib }}
+        INPUT_PYRIGHT_FLAGS: ${{ inputs.pyright_flags }}
 branding:
   icon: 'alert-octagon'
   color: 'blue'
