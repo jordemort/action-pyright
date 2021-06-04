@@ -13,7 +13,7 @@ jobs:
         uses: ./
         with:
           reporter: github-pr-review
-          level: info
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   shellcheck:
     name: shellcheck
@@ -29,6 +29,7 @@ jobs:
           reporter: github-pr-review
           exclude: "./.git/*"
           fail_on_error: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   markdownlint:
     name: markdownlint
@@ -43,6 +44,7 @@ jobs:
         with:
           reporter: github-pr-review
           fail_on_error: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   misspell:
     name: misspell
@@ -57,6 +59,7 @@ jobs:
         with:
           reporter: github-pr-review
           locale: "US"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   yamllint:
     name: yamllint
@@ -70,6 +73,7 @@ jobs:
         uses: reviewdog/action-yamllint@v1
         with:
           reporter: github-pr-review
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   pyflakes:
     name: pyflakes
@@ -80,3 +84,4 @@ jobs:
         uses: reviewdog/action-pyflakes@v1
         with:
           reporter: github-pr-review
+          github_token: ${{ secrets.GITHUB_TOKEN }}
