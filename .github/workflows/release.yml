@@ -2,13 +2,17 @@ name: release
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - "v*.*.*"
+  pull_request:
+    types:
+      - labeled
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    if: github.event.action != 'labeled'
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
@@ -23,6 +27,7 @@ jobs:
       - uses: haya14busa/action-update-semver@v1
         if: "!steps.bumpr.outputs.skip"
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.bumpr.outputs.next_version }}
 
       # Get tag name.
@@ -45,3 +50,11 @@ jobs:
           body: ${{ steps.bumpr.outputs.message }}
           draft: false
           prerelease: false
+
+  release-check:
+    if: github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Post bumpr status comment
+        uses: haya14busa/action-bumpr@v1
