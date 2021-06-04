@@ -14,7 +14,7 @@ echo '::endgroup::'
 
 
 echo '::group::🐍 Installing pyright ...'
-if [ -n "${INPUT_PYRIGHT_VERSION:-}" ] ; then
+if [ -z "${INPUT_PYRIGHT_VERSION:-}" ] ; then
   npm install pyright
 else
   npm install "pyright@${INPUT_PYRIGHT_VERSION}"
