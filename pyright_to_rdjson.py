@@ -4,7 +4,7 @@ import sys
 from typing import Any, Dict, TextIO
 
 
-def pyright_to_rdjson(jsonin):
+def pyright_to_rdjson(jsonin: str):
     pyright = json.load(jsonin)
 
     if "generalDiagnostics" not in pyright:
