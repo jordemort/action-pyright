@@ -1,5 +1,5 @@
 name: 'Run pyright with reviewdog'
-description: '🐶 Run pyright with reviewdog on pull requests to improve code review experience.'
+description: '🐶 Run pyright on pull requests and get reviews with reviewdog.'
 author: 'Jordan Webb (@jordemort)'
 inputs:
   github_token:
