@@ -1,73 +1,73 @@
-name: 'Run pyright with reviewdog'
-description: '🐶 Run pyright with reviewdog on pull requests to improve code review experience.'
-author: 'Jordan Webb (@jordemort)'
+name: "Run pyright with reviewdog"
+description: "🐶 Run pyright on pull requests and get reviews with reviewdog."
+author: "Jordan Webb (@jordemort)"
 inputs:
   github_token:
-    description: 'GITHUB_TOKEN.'
+    description: "GITHUB_TOKEN."
     required: true
     default: ${{ github.token }}
   level:
-    description: 'Report level for reviewdog [info,warning,error]'
+    description: "Report level for reviewdog [info,warning,error]"
     required: false
-    default: 'error'
+    default: "error"
   reporter:
     description: |
       Reporter of reviewdog command [github-check,github-pr-review].
       Default is github-pr-review.
       github-pr-review can use Markdown and add a link to rule page in reviewdog reports.
     required: false
-    default: 'github-pr-review'
+    default: "github-pr-review"
   filter_mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
       Default is added.
     required: false
-    default: 'added'
+    default: "added"
   fail_on_error:
     description: |
       Exit code for reviewdog when errors are found [true,false]
       Default is `false`.
     required: false
-    default: 'false'
+    default: "false"
   reviewdog_flags:
-    description: 'Additional reviewdog flags'
+    description: "Additional reviewdog flags"
     required: false
-    default: ''
+    default: ""
   workdir:
     description: "The directory from which to run pyright. Default '.'"
     required: false
-    default: '.'
+    default: "."
   tool_name:
-    description: 'Tool name to use for reviewdog reporter'
+    description: "Tool name to use for reviewdog reporter"
     required: false
-    default: 'pyright'
+    default: "pyright"
   pyright_version:
-    description: 'Version of pyright to run. If not specified, the latest version will be used.'
+    description: "Version of pyright to run. If not specified, the latest version will be used."
     required: false
   python_platform:
-    description: 'Analyze for a specific platform (Darwin, Linux, Windows).'
+    description: "Analyze for a specific platform (Darwin, Linux, Windows)."
     required: false
   python_version:
-    description: 'Analyze for a specific version (3.3, 3.4, etc.).'
+    description: "Analyze for a specific version (3.3, 3.4, etc.)."
     required: false
   typeshed_path:
-    description: 'Use typeshed type stubs at this location.'
+    description: "Use typeshed type stubs at this location."
     required: false
   venv_path:
-    description: 'Directory that contains virtual environments.'
+    description: "Directory that contains virtual environments."
     required: false
   project:
-    description: 'Use the configuration file at this location.'
+    description: "Use the configuration file at this location."
     required: false
   lib:
-    description: 'Use library code to infer types when stubs are missing.'
+    description: "Use library code to infer types when stubs are missing."
     required: false
-    default: 'false'
+    default: "false"
   pyright_flags:
-    description: 'Extra arguments; can be used to specify specific files to check.'
+    description: "Extra arguments; can be used to specify specific files to check."
     required: false
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: bash
@@ -84,6 +84,14 @@ runs:
         INPUT_ESLINT_FLAGS: ${{ inputs.eslint_flags }}
         INPUT_WORKDIR: ${{ inputs.workdir }}
         INPUT_TOOL_NAME: ${{ inputs.tool_name }}
+        INPUT_PYRIGHT_VERSION: ${{ inputs.pyright_version }}
+        INPUT_PYTHON_PLATFORM: ${{ inputs.python_platform }}
+        INPUT_PYTHON_VERSION: ${{ inputs.python_version }}
+        INPUT_TYPESHED_PATH: ${{ inputs.typeshed_path }}
+        INPUT_VENV_PATH: ${{ inputs.venv_path }}
+        INPUT_PROJECT: ${{ inputs.project }}
+        INPUT_LIB: ${{ inputs.lib }}
+        INPUT_PYRIGHT_FLAGS: ${{ inputs.pyright_flags }}
 branding:
-  icon: 'alert-octagon'
-  color: 'blue'
+  icon: "alert-octagon"
+  color: "blue"
