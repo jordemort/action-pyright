@@ -2,7 +2,7 @@ name: reviewdog
 on: [pull_request]
 jobs:
   pyright:
-    name: runner / pyright
+    name: pyright
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
