@@ -19,7 +19,7 @@ def pyright_to_rdjson(jsonin: TextIO):
     for d in pyright["generalDiagnostics"]:
         rdjson["diagnostics"].append(
             {
-                "message": d["rule"] + ": " + d["message"],
+                "message": f"{d['message']} ({d['rule']})",
                 "severity": d["serverity"].upper(),
                 "location": {
                     "path": d["file"],
