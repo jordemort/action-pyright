@@ -1,6 +1,6 @@
-name: 'Run pyright with reviewdog'
-description: '🐶 Run pyright on pull requests and get reviews with reviewdog.'
-author: 'Jordan Webb (@jordemort)'
+name: "Run pyright with reviewdog"
+description: "🐶 Run pyright on pull requests and get reviews with reviewdog."
+author: "Jordan Webb (@jordemort)"
 inputs:
   github_token:
     description: 'GITHUB_TOKEN.'
