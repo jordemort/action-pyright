@@ -55,7 +55,7 @@ Default is added.
 
 ### `fail_on_error`
 
-Optional.  Exit code for reviewdog when errors are found [true,false]
+Optional. Exit code for reviewdog when errors are found [true,false]
 Default is `false`.
 
 ### `reviewdog_flags`
