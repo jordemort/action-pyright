@@ -14,9 +14,8 @@ echo '::group::🐶 Installing reviewdog ... https://github.com/reviewdog/review
 curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "${TEMP_PATH}" "${REVIEWDOG_VERSION}" 2>&1
 echo '::endgroup::'
 
-
 echo '::group::🐍 Installing pyright ...'
-if [ -z "${INPUT_PYRIGHT_VERSION:-}" ] ; then
+if [ -z "${INPUT_PYRIGHT_VERSION:-}" ]; then
   npm install pyright
 else
   npm install "pyright@${INPUT_PYRIGHT_VERSION}"
