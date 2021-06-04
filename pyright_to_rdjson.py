@@ -20,7 +20,7 @@ def pyright_to_rdjson(jsonin: TextIO):
         rdjson["diagnostics"].append(
             {
                 "message": f"{d['message']} ({d['rule']})",
-                "severity": d["serverity"].upper(),
+                "severity": d["severity"].upper(),
                 "location": {
                     "path": d["file"],
                     "range": {
