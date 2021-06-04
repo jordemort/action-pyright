@@ -2,9 +2,9 @@ name: release
 on:
   push:
     branches:
-      - master
+      - main
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   release:
