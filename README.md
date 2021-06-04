@@ -7,6 +7,8 @@
 
 This is an action that runs the [pyright](https://github.com/Microsoft/pyright) type checker against your Python code, and uses [reviewdog](https://github.com/reviewdog/reviewdog) to create GitHub PR comments or reviews with the results.
 
+[![screenshot](screenshot.png)]
+
 This action is based on [action-eslint](https://github.com/reviewdog/action-eslint) and inspired by [pyright-action](https://github.com/jakebailey/pyright-action).
 
 You can configure pyright using [`pyrightconfig.json` or `pyproject.toml`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md), or see the inputs below.
