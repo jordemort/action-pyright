@@ -6,7 +6,6 @@ on:
     types: [depup]
   workflow_dispatch:
 
-
 jobs:
   reviewdog:
     runs-on: ubuntu-latest
