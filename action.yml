@@ -93,5 +93,5 @@ runs:
         INPUT_LIB: ${{ inputs.lib }}
         INPUT_PYRIGHT_FLAGS: ${{ inputs.pyright_flags }}
 branding:
-  icon: 'alert-octagon'
-  color: 'blue'
+  icon: "alert-octagon"
+  color: "blue"

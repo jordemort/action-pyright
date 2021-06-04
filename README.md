@@ -10,6 +10,7 @@ This is an action that runs the [pyright](https://github.com/Microsoft/pyright) 
 This action is based on [action-eslint](https://github.com/reviewdog/action-eslint) and inspired by [pyright-action](https://github.com/jakebailey/pyright-action).
 
 You can configure pyright using [`pyrightconfig.json` or `pyproject.toml`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md), or see the inputs below.
+
 ## Example usage
 
 ```yml
@@ -23,8 +24,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: jordemort/action-pyright@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}   # You need this
-          reporter: github-pr-review                  # Change reporter.
+          github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
+          reporter: github-pr-review # Change reporter.
           lib: true
 ```
 
