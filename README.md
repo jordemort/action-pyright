@@ -11,7 +11,6 @@ This action is based on [action-eslint](https://github.com/reviewdog/action-esli
 
 You can configure pyright using [`pyrightconfig.json` or `pyproject.toml`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md), or see the inputs below.
 
-
 ## Example usage
 
 ```yml
