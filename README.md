@@ -88,6 +88,7 @@ Optional. Directory that contains virtual environments.
 ### `project`
 
 Optional. Use the configuration file at this location.
+
 ### `lib`
 
 Optional. Use library code to infer types when stubs are missing. Default `false`.

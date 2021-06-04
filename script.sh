@@ -51,7 +51,8 @@ if [ -n "${INPUT_LIB:-}" ] ; then
 fi
 
 echo '::group::🔎 Running pyright with reviewdog 🐶 ...'
-$(npm bin)/pyright "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} \
+# shellcheck disable=SC2086
+"$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} \
   | python3 "${BASE_PATH}/pyright_to_rdjson.py" \
   | reviewdog -f=rdjson \
       -name="${INPUT_TOOL_NAME}" \
