@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+BASE_PATH="$(cd "$(dirname "$0")" && pwd)"
+
 cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
 
 TEMP_PATH="$(mktemp -d)"
@@ -12,9 +14,8 @@ echo '::group::🐶 Installing reviewdog ... https://github.com/reviewdog/review
 curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "${TEMP_PATH}" "${REVIEWDOG_VERSION}" 2>&1
 echo '::endgroup::'
 
-
 echo '::group::🐍 Installing pyright ...'
-if [ -n "${INPUT_PYRIGHT_VERSION:-}" ] ; then
+if [ -z "${INPUT_PYRIGHT_VERSION:-}" ]; then
   npm install pyright
 else
   npm install "pyright@${INPUT_PYRIGHT_VERSION}"
@@ -49,9 +50,9 @@ if [ -n "${INPUT_LIB:-}" ] ; then
   fi
 fi
 
-echo '::group:: Running pyright with reviewdog 🐶 ...'
+echo '::group::🔎 Running pyright with reviewdog 🐶 ...'
 $(npm bin)/pyright "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} \
-  | "${GITHUB_ACTION_PATH}/pyright_to_rdjson.py"} \
+  | python3 "${BASE_PATH}/pyright_to_rdjson.py" \
   | reviewdog -f=rdjson \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="${INPUT_REPORTER:-github-pr-review}" \
