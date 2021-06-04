@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+BASE_PATH="$(cd "$(dirname "$0")" && pwd)"
+
 cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
 
 TEMP_PATH="$(mktemp -d)"
@@ -51,7 +53,7 @@ fi
 
 echo '::group:: Running pyright with reviewdog 🐶 ...'
 $(npm bin)/pyright "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} \
-  | "${GITHUB_ACTION_PATH}/pyright_to_rdjson.py"} \
+  | python3 "${BASE_PATH}/pyright_to_rdjson.py" \
   | reviewdog -f=rdjson \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="${INPUT_REPORTER:-github-pr-review}" \
