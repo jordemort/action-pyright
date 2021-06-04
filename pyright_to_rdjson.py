@@ -4,13 +4,13 @@ import sys
 from typing import Any, Dict, TextIO
 
 
-def pyright_to_rdjson(jsonin: TextIO):
+def pyright_to_rdjson(jsonin):
     pyright = json.load(jsonin)
 
     if "generalDiagnostics" not in pyright:
         raise RuntimeError("This doesn't look like pyright json")
 
-    rdjson: Dict[str, Any] = {
+    rdjson = {
         "source": {"name": "pyright", "url": "https://github.com/Microsoft/pyright"},
         "severity": "WARNING",
         "diagnostics": [],
