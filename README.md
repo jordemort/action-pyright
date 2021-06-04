@@ -5,9 +5,11 @@
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jordemort/action-pyright?logo=github&sort=semver)](https://github.com/jordemort/action-pyright/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
-This is an action that runs [pyright](https://github.com/Microsoft/pyright) against your Python code, and uses [reviewdog](https://github.com/reviewdog/reviewdog) to create GitHub PR comments or reviews with the results.
+This is an action that runs the [pyright](https://github.com/Microsoft/pyright) type checker against your Python code, and uses [reviewdog](https://github.com/reviewdog/reviewdog) to create GitHub PR comments or reviews with the results.
 
 This action is based on [action-eslint](https://github.com/reviewdog/action-eslint) and inspired by [pyright-action](https://github.com/jakebailey/pyright-action).
+
+You can configure pyright using [`pyrightconfig.json` or `pyproject.toml`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md), or see the inputs below.
 
 ## Example usage
 
@@ -22,6 +24,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: jordemort/action-pyright@v1
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
           reporter: github-pr-review # Change reporter.
           lib: true
 ```
@@ -52,7 +55,7 @@ Default is added.
 
 ### `fail_on_error`
 
-Optional.  Exit code for reviewdog when errors are found [true,false]
+Optional. Exit code for reviewdog when errors are found [true,false]
 Default is `false`.
 
 ### `reviewdog_flags`

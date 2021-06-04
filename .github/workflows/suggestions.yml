@@ -30,8 +30,8 @@ jobs:
         with:
           tool_name: shellcheck / shfmt
 
-  markdown:
-    name: Markdown suggestions
+  markdownlint-prettier:
+    name: markdownlint and prettier suggestions
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -39,30 +39,15 @@ jobs:
           submodules: false
 
       - run: sudo npm install -g markdownlint-cli
-
-      - run: markdownlint --fix --ignore site/_includes . || true
-
-      - name: suggester / markdown
-        uses: reviewdog/action-suggester@v1
-        with:
-          tool_name: markdownlint-cli
-
-  prettier:
-    name: Prettier suggestions
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: false
-
       - run: sudo npm install -g prettier
 
+      - run: markdownlint --fix --ignore site/_includes . || true
       - run: prettier -u -w '**/*.yaml' '**/.*.yaml' '**/*.yml' '**/.*.yml' '**/*.json' '**/*.md' || true
 
       - name: suggester / prettier
         uses: reviewdog/action-suggester@v1
         with:
-          tool_name: prettier
+          tool_name: markdownlint / prettier
 
   black:
     name: Black formatter
