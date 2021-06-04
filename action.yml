@@ -1,6 +1,6 @@
-name: 'Run eslint with reviewdog'
-description: '🐶 Run eslint with reviewdog on pull requests to improve code review experience.'
-author: 'haya14busa (reviewdog)'
+name: 'Run pyright with reviewdog'
+description: '🐶 Run pyright with reviewdog on pull requests to improve code review experience.'
+author: 'Jordan Webb (@jordemort)'
 inputs:
   github_token:
     description: 'GITHUB_TOKEN.'
@@ -33,18 +33,39 @@ inputs:
     description: 'Additional reviewdog flags'
     required: false
     default: ''
-  eslint_flags:
-    description: "flags and args of eslint command. Default: '.'"
-    required: false
-    default: '.'
   workdir:
-    description: "The directory from which to look for and run eslint. Default '.'"
+    description: "The directory from which to run pyright. Default '.'"
     required: false
     default: '.'
   tool_name:
     description: 'Tool name to use for reviewdog reporter'
     required: false
-    default: 'eslint'
+    default: 'pyright'
+  pyright_version:
+    description: 'Version of pyright to run. If not specified, the latest version will be used.'
+    required: false
+  python_platform:
+    description: 'Analyze for a specific platform (Darwin, Linux, Windows).'
+    required: false
+  python_version:
+    description: 'Analyze for a specific version (3.3, 3.4, etc.).'
+    required: false
+  typeshed_path:
+    description: 'Use typeshed type stubs at this location.'
+    required: false
+  venv_path:
+    description: 'Directory that contains virtual environments.'
+    required: false
+  project:
+    description: 'Use the configuration file at this location.'
+    required: false
+  lib:
+    description: 'Use library code to infer types when stubs are missing.'
+    required: false
+    default: 'false'
+  pyright_flags:
+    description: 'Extra arguments; can be used to specify specific files to check.'
+    required: false
 runs:
   using: 'composite'
   steps:

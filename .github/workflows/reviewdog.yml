@@ -1,44 +1,82 @@
 name: reviewdog
 on: [pull_request]
 jobs:
-  eslint:
-    name: runner / eslint
-    runs-on: ubuntu-latest
+  pyright:
+    name: runner / pyright
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: eslint-github-pr-check
+        with:
+          submodules: false
+
+      - name: pyright
         uses: ./
         with:
-          tool_name: eslint-github-pr-check
-          reporter: github-pr-check
+          reporter: github-pr-review
           level: info
-          eslint_flags: 'testdata/ --ignore-pattern /test-subproject/'
-      - name: eslint-github-check
-        uses: ./
+
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
         with:
-          tool_name: eslint-github-check
-          reporter: github-check
-          level: warning
-          eslint_flags: 'testdata/ --ignore-pattern /test-subproject/'
-      - name: eslint-github-pr-review
-        uses: ./
+          submodules: false
+
+      - name: shellcheck
+        uses: reviewdog/action-shellcheck@v1
         with:
-          tool_name: eslint-github-pr-review
           reporter: github-pr-review
-          eslint_flags: 'testdata/ --ignore-pattern /test-subproject/'
-      - name: eslint-subproject-github-pr-review
-        uses: ./
+          exclude: "./.git/*"
+          fail_on_error: true
+
+  markdownlint:
+    name: markdownlint
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
         with:
-          tool_name: eslint-subproject-github-pr-review
+          submodules: false
+
+      - name: markdownlint
+        uses: reviewdog/action-markdownlint@v0.1
+        with:
           reporter: github-pr-review
-          workdir: ./test-subproject
-          eslint_flags: 'sub-testdata/'
-      - name: eslint-subproject
-        uses: ./
+          fail_on_error: true
+
+  misspell:
+    name: misspell
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
         with:
-          tool_name: eslint-subproject
-          workdir: ./test-subproject
-          eslint_flags: 'sub-testdata/'
-          reporter: github-check
-          level: warning
-          filter_mode: file
+          submodules: false
+
+      - name: misspell
+        uses: reviewdog/action-misspell@v1
+        with:
+          reporter: github-pr-review
+          locale: "US"
+
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: false
+
+      - name: yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          reporter: github-pr-review
+
+  pyflakes:
+    name: pyflakes
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: pyflakes
+        uses: reviewdog/action-pyflakes@v1
+        with:
+          reporter: github-pr-review

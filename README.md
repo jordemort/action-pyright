@@ -1,17 +1,33 @@
-# GitHub Action: Run eslint with reviewdog
+# GitHub Action: Run pyright with reviewdog
 
-[![Docker Image CI](https://github.com/reviewdog/action-eslint/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/reviewdog/action-eslint/actions)
-[![depup](https://github.com/reviewdog/action-eslint/workflows/depup/badge.svg)](https://github.com/reviewdog/action-eslint/actions?query=workflow%3Adepup)
-[![release](https://github.com/reviewdog/action-eslint/workflows/release/badge.svg)](https://github.com/reviewdog/action-eslint/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/reviewdog/action-eslint?logo=github&sort=semver)](https://github.com/reviewdog/action-eslint/releases)
+[![Docker Image CI](https://github.com/jordemort/action-pyright/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/jordemort/action-pyright/actions)
+[![depup](https://github.com/jordemort/action-pyright/workflows/depup/badge.svg)](https://github.com/jordemort/action-pyright/actions?query=workflow%3Adepup)
+[![release](https://github.com/jordemort/action-pyright/workflows/release/badge.svg)](https://github.com/jordemort/action-pyright/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jordemort/action-pyright?logo=github&sort=semver)](https://github.com/jordemort/action-pyright/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
-This action runs [eslint](https://github.com/eslint/eslint) with
+This action runs [pyright](https://github.com/Microsoft/pyright) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
 code review experience.
 
-[![github-pr-check sample](https://user-images.githubusercontent.com/3797062/65439130-a6043b80-de61-11e9-98b5-bd9567e184b0.png)](https://github.com/reviewdog/action-eslint/pull/1)
-![eslint reviewdog rdjson demo](https://user-images.githubusercontent.com/3797062/97085944-87233a80-165b-11eb-94a8-0a47d5e24905.png)
+This action is based on [action-eslint](https://github.com/reviewdog/action-eslint) and [pyright-action](https://github.com/jakebailey/pyright-action).
+
+## Example usage
+
+```yml
+name: reviewdog
+on: [pull_request]
+jobs:
+  pyright:
+    name: pyright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jordemort/action-pyright@v1
+        with:
+          reporter: github-pr-review # Change reporter.
+          lib: true
+```
 
 ## Inputs
 
@@ -46,61 +62,37 @@ Default is `false`.
 
 Optional. Additional reviewdog flags
 
-### `eslint_flags`
-
-Optional. Flags and args of eslint command. Default: '.'
-
 ### `workdir`
 
 Optional. The directory from which to look for and run eslint. Default '.'
 
-## Example usage
+### `pyright_version`
 
-You also need to install [eslint](https://github.com/eslint/eslint).
+Optional. Version of pyright to run. If not specified, the latest version will be used.
 
-```shell
-# Example
-$ npm install eslint -D
-```
+### `python_platform`
 
-You can create [eslint
-config](https://eslint.org/docs/user-guide/configuring)
-and this action uses that config too.
+Optional. Analyze for a specific platform (Darwin, Linux, Windows)
 
-### [.github/workflows/reviewdog.yml](.github/workflows/reviewdog.yml)
+### `python_version`
 
-```yml
-name: reviewdog
-on: [pull_request]
-jobs:
-  eslint:
-    name: runner / eslint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-eslint@v1
-        with:
-          reporter: github-pr-review # Change reporter.
-          eslint_flags: 'src/'
-```
+Optional. Analyze for a specific Python version (3.3, 3.4, etc.)
 
-You can also set up node and eslint manually like below.
+### `typeshed_path`
 
-```yml
-name: reviewdog
-on: [pull_request]
-jobs:
-  eslint:
-    name: runner / eslint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: yarn install
-      - uses: reviewdog/action-eslint@v1
-        with:
-          reporter: github-check
-          eslint_flags: 'src/'
-```
+Optional. Use typeshed type stubs at this location.
+
+### `venv_path`
+
+Optional. Directory that contains virtual environments.
+
+### `project`
+
+Optional. Use the configuration file at this location.
+### `lib`
+
+Optional. Use library code to infer types when stubs are missing. Default `false`.
+
+### `pyright_flags`
+
+Optional extra arguments; can be used to specify specific files to check.
