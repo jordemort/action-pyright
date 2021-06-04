@@ -1,15 +1,13 @@
-# GitHub Action: Run pyright with reviewdog
+# action-pyright
 
 [![depup](https://github.com/jordemort/action-pyright/workflows/depup/badge.svg)](https://github.com/jordemort/action-pyright/actions?query=workflow%3Adepup)
 [![release](https://github.com/jordemort/action-pyright/workflows/release/badge.svg)](https://github.com/jordemort/action-pyright/actions?query=workflow%3Arelease)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jordemort/action-pyright?logo=github&sort=semver)](https://github.com/jordemort/action-pyright/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
-This action runs [pyright](https://github.com/Microsoft/pyright) with
-[reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
-code review experience.
+This is an action that runs [pyright](https://github.com/Microsoft/pyright) against your Python code, and uses [reviewdog](https://github.com/reviewdog/reviewdog) to create GitHub PR comments or reviews with the results.
 
-This action is based on [action-eslint](https://github.com/reviewdog/action-eslint) and [pyright-action](https://github.com/jakebailey/pyright-action).
+This action is based on [action-eslint](https://github.com/reviewdog/action-eslint) and inspired by [pyright-action](https://github.com/jakebailey/pyright-action).
 
 ## Example usage
 
