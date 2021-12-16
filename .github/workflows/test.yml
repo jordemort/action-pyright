@@ -15,4 +15,6 @@ jobs:
       - name: pytest
         run: |
           pip install pyright pytest
+          mv pyrightconfig.json pyrightconfig.bak
           pytest --ignore=./pyright_to_rdjson/tests/files ./pyright_to_rdjson/tests/
+          mv pyrightconfig.bak pyrightconfig.json
