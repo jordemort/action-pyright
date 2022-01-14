@@ -1,7 +1,6 @@
 from typing import Dict
 import pyright
 import subprocess
-import base64
 import json
 import io
 
