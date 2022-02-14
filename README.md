@@ -1,4 +1,5 @@
 # action-pyright
+
 [![test](https://github.com/jordemort/action-pyright/actions/workflows/test.yml/badge.svg)](https://github.com/jordemort/action-pyright/actions/workflows/test.yml)
 [![depup](https://github.com/jordemort/action-pyright/workflows/depup/badge.svg)](https://github.com/jordemort/action-pyright/actions?query=workflow%3Adepup)
 [![release](https://github.com/jordemort/action-pyright/workflows/release/badge.svg)](https://github.com/jordemort/action-pyright/actions?query=workflow%3Arelease)
