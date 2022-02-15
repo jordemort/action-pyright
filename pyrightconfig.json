@@ -1,0 +1,5 @@
+{
+    "exclude": [
+        "./pyright_to_rdjson/tests"
+    ]
+}

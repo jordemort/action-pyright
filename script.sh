@@ -24,28 +24,28 @@ echo '::endgroup::'
 
 PYRIGHT_ARGS=(--outputjson)
 
-if [ -n "${INPUT_PYTHON_PLATFORM:-}" ] ; then
+if [ -n "${INPUT_PYTHON_PLATFORM:-}" ]; then
   PYRIGHT_ARGS+=(--pythonplatform "$INPUT_PYTHON_PLATFORM")
 fi
 
-if [ -n "${INPUT_PYTHON_VERSION:-}" ] ; then
+if [ -n "${INPUT_PYTHON_VERSION:-}" ]; then
   PYRIGHT_ARGS+=(--pythonversion "$INPUT_PYTHON_VERSION")
 fi
 
-if [ -n "${INPUT_TYPESHED_PATH:-}" ] ; then
+if [ -n "${INPUT_TYPESHED_PATH:-}" ]; then
   PYRIGHT_ARGS+=(--typeshed-path "$INPUT_TYPESHED_PATH")
 fi
 
-if [ -n "${INPUT_VENV_PATH:-}" ] ; then
+if [ -n "${INPUT_VENV_PATH:-}" ]; then
   PYRIGHT_ARGS+=(--venv-path "$INPUT_VENV_PATH")
 fi
 
-if [ -n "${INPUT_PROJECT:-}" ] ; then
+if [ -n "${INPUT_PROJECT:-}" ]; then
   PYRIGHT_ARGS+=(--project "$INPUT_PROJECT")
 fi
 
-if [ -n "${INPUT_LIB:-}" ] ; then
-  if [ "${INPUT_LIB^^}" != "FALSE" ] ; then
+if [ -n "${INPUT_LIB:-}" ]; then
+  if [ "${INPUT_LIB^^}" != "FALSE" ]; then
     PYRIGHT_ARGS+=(--lib)
   fi
 fi
@@ -53,7 +53,7 @@ fi
 echo '::group::🔎 Running pyright with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
 "$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} |
-  python3 "${BASE_PATH}/pyright_to_rdjson.py" |
+  python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" |
   reviewdog -f=rdjson \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER:-github-pr-review}" \

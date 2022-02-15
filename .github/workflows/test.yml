@@ -1,0 +1,20 @@
+name: test
+on:
+  pull_request:
+  push:
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: false
+
+      - name: pytest
+        run: |
+          pip install pyright pytest
+          mv pyrightconfig.json pyrightconfig.bak
+          pytest --ignore=./pyright_to_rdjson/tests/files ./pyright_to_rdjson/tests/
+          mv pyrightconfig.bak pyrightconfig.json
