@@ -54,9 +54,7 @@ echo '::group::🔎 Running pyright with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
 "$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} | tee /tmp/pyright.json
 
-python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" | tee /tmp/rdjson.json
-
-cat /tmp/rdjson.json
+python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" < /tmp/pyright.json
 
 # shellcheck disable=SC2086
 reviewdog -f=rdjson \
