@@ -49,8 +49,6 @@ Reporter of reviewdog command [github-pr-check,github-check,github-pr-review].
 Default is github-pr-review.
 It's same as `-reporter` flag of reviewdog.
 
-github-pr-review can use Markdown and add a link to rule page in reviewdog reports.
-
 ### `filter_mode`
 
 Optional. Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
@@ -67,7 +65,7 @@ Optional. Additional reviewdog flags
 
 ### `workdir`
 
-Optional. The directory from which to look for and run eslint. Default '.'
+Optional. The directory from which to run pyright. Default '.'
 
 ### `pyright_version`
 
