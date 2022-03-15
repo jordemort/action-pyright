@@ -12,18 +12,15 @@ jobs:
         with:
           submodules: false
 
-      - uses: actions/setup-go@v2
-      - run: echo "$HOME/go/bin" >> "$GITHUB_PATH"
-      - run: GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
-      
       - name: install shellcheck
         run: |
           scversion="latest"
           wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv
           sudo cp "shellcheck-${scversion}/shellcheck" /usr/local/bin/
           rm -rf "shellcheck-${scversion}/shellcheck"
+          
       - run: shellcheck -x -f diff $(shfmt -f .) | patch -p1
-      - run: shfmt -i 2 -ci -w .
+      - run: docker run --rm -v "$PWD:/mnt" -w /mnt mvdan/shfmt:v3 -i 2 -ci -w .
 
       - name: suggester / shellcheck
         uses: reviewdog/action-suggester@v1
