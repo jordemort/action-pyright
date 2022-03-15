@@ -50,18 +50,38 @@ if [ -n "${INPUT_LIB:-}" ]; then
   fi
 fi
 
+cleanup() {
+  if [ -n "${RDTMP:-}" ] && [ -d "${RDTMP:-}" ]; then
+    rm -rf "$RDTMP"
+  fi
+}
+
 echo '::group::🔎 Running pyright with reviewdog 🐶 ...'
+
+RDTMP=$(mktemp -d)
+trap cleanup EXIT
+
+set -x
+
 # shellcheck disable=SC2086
-"$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} |
-  python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" |
-  reviewdog -f=rdjson \
-    -name="${INPUT_TOOL_NAME}" \
-    -reporter="${INPUT_REPORTER:-github-pr-review}" \
-    -filter-mode="${INPUT_FILTER_MODE}" \
-    -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
-    -level="${INPUT_LEVEL}" \
-    ${INPUT_REVIEWDOG_FLAGS}
+"$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} > "$RDTMP/pyright.json" || true
+
+python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" < "$RDTMP/pyright.json" > "$RDTMP/rdjson.json"
+
+set +e
+# shellcheck disable=SC2086
+reviewdog -f=rdjson \
+  -name="${INPUT_TOOL_NAME}" \
+  -reporter="${INPUT_REPORTER:-github-pr-review}" \
+  -filter-mode="${INPUT_FILTER_MODE}" \
+  -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
+  -level="${INPUT_LEVEL}" \
+  ${INPUT_REVIEWDOG_FLAGS} < "$RDTMP/rdjson.json"
 
 reviewdog_rc=$?
+
+set +x
+echo "reviewdog exited with exit status $reviewdog_rc"
 echo '::endgroup::'
+
 exit $reviewdog_rc

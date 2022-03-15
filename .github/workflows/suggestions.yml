@@ -13,9 +13,9 @@ jobs:
           submodules: false
 
       - uses: actions/setup-go@v2
-      - run: | 
-        echo "$HOME/go/bin" >> "$GITHUB_PATH"
-        GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
+      - run: |
+          echo "$HOME/go/bin" >> "$GITHUB_PATH"
+          GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
       - name: install shellcheck
         run: |
