@@ -13,7 +13,7 @@ jobs:
           submodules: false
 
       - uses: actions/setup-go@v2
-      - run: | 
+      - run: |
           echo "$HOME/go/bin" >> "$GITHUB_PATH"
           GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
