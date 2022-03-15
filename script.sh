@@ -78,8 +78,8 @@ reviewdog -f=rdjson \
   -level="${INPUT_LEVEL}" \
   ${INPUT_REVIEWDOG_FLAGS} < "$RDTMP/rdjson.json"
 
+set +x
 reviewdog_rc=$?
 
-set +x
 echo '::endgroup::'
 exit $reviewdog_rc
