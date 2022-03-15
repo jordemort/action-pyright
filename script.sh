@@ -52,15 +52,15 @@ fi
 
 echo '::group::🔎 Running pyright with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
-"$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} |
-  python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" |
+"$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} | tee /tmp/pyright.json
+  python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" | tee /tmp/rdjson.json
   reviewdog -f=rdjson \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER:-github-pr-review}" \
     -filter-mode="${INPUT_FILTER_MODE}" \
     -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
     -level="${INPUT_LEVEL}" \
-    ${INPUT_REVIEWDOG_FLAGS}
+    ${INPUT_REVIEWDOG_FLAGS} < /tmp/rdjson.json
 
 reviewdog_rc=$?
 echo '::endgroup::'
