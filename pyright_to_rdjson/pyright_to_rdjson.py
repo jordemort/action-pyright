@@ -33,11 +33,12 @@ def pyright_to_rdjson(jsonin: TextIO):
                     "path": d["file"],
                     "range": {
                         "start": {
-                            "line": d["range"]["start"]["line"],
+                            # pyright uses zero-based offsets
+                            "line": d["range"]["start"]["line"] + 1,
                             "column": d["range"]["start"]["character"],
                         },
                         "end": {
-                            "line": d["range"]["end"]["line"],
+                            "line": d["range"]["end"]["line"] + 1,
                             "column": d["range"]["end"]["character"],
                         },
                     },

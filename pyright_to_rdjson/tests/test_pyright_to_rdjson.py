@@ -43,8 +43,8 @@ class TestPyright:
             pyright_line_start = pyright_line_range["start"]
             pyright_line_end = pyright_line_range["end"]
 
-            assert rdjson_line_start["line"] == pyright_line_start["line"]
+            assert rdjson_line_start["line"] == pyright_line_start["line"] + 1
             assert rdjson_line_start["column"] == pyright_line_start["character"]
 
-            assert rdjson_line_end["line"] == pyright_line_end["line"]
+            assert rdjson_line_end["line"] == pyright_line_end["line"] + 1
             assert rdjson_line_end["column"] == pyright_line_end["character"]
