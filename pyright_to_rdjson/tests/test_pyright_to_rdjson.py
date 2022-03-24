@@ -45,7 +45,7 @@ class TestPyright:
 
             # pyrights offsets are zero-based
             assert rdjson_line_start["line"] == pyright_line_start["line"] + 1
-            assert rdjson_line_start["column"] == pyright_line_start["character"]
+            assert rdjson_line_start["column"] == pyright_line_start["character"] + 1
 
             assert rdjson_line_end["line"] == pyright_line_end["line"] + 1
             assert rdjson_line_end["column"] == pyright_line_end["character"] + 1
