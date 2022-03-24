@@ -39,7 +39,7 @@ def pyright_to_rdjson(jsonin: TextIO):
                         },
                         "end": {
                             "line": d["range"]["end"]["line"] + 1,
-                            "column": d["range"]["end"]["character"],
+                            "column": d["range"]["end"]["character"] + 1,
                         },
                     },
                 },
