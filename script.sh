@@ -3,6 +3,7 @@
 set -euo pipefail
 
 BASE_PATH="$(cd "$(dirname "$0")" && pwd)"
+INPUT_PYRIGHT_VERSION=${INPUT_PYRIGHT_VERSION:-latest}
 
 cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
 
@@ -12,14 +13,6 @@ export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 echo '::group::🐶 Installing reviewdog ... https://github.com/reviewdog/reviewdog'
 curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "${TEMP_PATH}" "${REVIEWDOG_VERSION}" 2>&1
-echo '::endgroup::'
-
-echo '::group::🐍 Installing pyright ...'
-if [ -z "${INPUT_PYRIGHT_VERSION:-}" ]; then
-  npm install pyright
-else
-  npm install "pyright@${INPUT_PYRIGHT_VERSION}"
-fi
 echo '::endgroup::'
 
 PYRIGHT_ARGS=(--outputjson)
@@ -64,7 +57,7 @@ trap cleanup EXIT
 set -x
 
 # shellcheck disable=SC2086
-"$(npm bin)/pyright" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} > "$RDTMP/pyright.json" || true
+npm exec --yes "pyright@${INPUT_PYRIGHT_VERSION}" "${PYRIGHT_ARGS[@]}" ${INPUT_PYRIGHT_FLAGS:-} > "$RDTMP/pyright.json" || true
 
 python3 "${BASE_PATH}/pyright_to_rdjson/pyright_to_rdjson.py" < "$RDTMP/pyright.json" > "$RDTMP/rdjson.json"
 
