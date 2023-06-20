@@ -40,7 +40,7 @@ jobs:
           submodules: false
 
       - name: markdownlint
-        uses: reviewdog/action-markdownlint@v0.9
+        uses: reviewdog/action-markdownlint@v0.12
         with:
           reporter: github-pr-review
           fail_on_error: true
