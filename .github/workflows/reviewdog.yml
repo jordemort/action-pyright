@@ -5,7 +5,7 @@ jobs:
     name: pyright
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -19,7 +19,7 @@ jobs:
     name: shellcheck
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -35,7 +35,7 @@ jobs:
     name: markdownlint
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -50,7 +50,7 @@ jobs:
     name: misspell
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -65,7 +65,7 @@ jobs:
     name: yamllint
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -79,7 +79,7 @@ jobs:
     name: pyflakes
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: pyflakes
         uses: reviewdog/action-pyflakes@v1
         with:
