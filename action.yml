@@ -66,9 +66,15 @@ inputs:
   pyright_flags:
     description: "Extra arguments; can be used to specify specific files to check."
     required: false
+  verbose:
+    description: 'Verbose mode'
+    default: 'false'
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '>=12'
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: bash
       env:
@@ -92,6 +98,7 @@ runs:
         INPUT_PROJECT: ${{ inputs.project }}
         INPUT_LIB: ${{ inputs.lib }}
         INPUT_PYRIGHT_FLAGS: ${{ inputs.pyright_flags }}
+        INPUT_VERBOSE: ${{ inputs.verbose }}
 branding:
   icon: "alert-octagon"
   color: "blue"
